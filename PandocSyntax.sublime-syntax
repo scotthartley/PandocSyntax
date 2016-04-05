@@ -1,0 +1,88 @@
+%YAML 1.2
+---
+name: PandocSyntax
+file_extensions: [md, pd]
+scope: text.html.markdown
+
+variables:
+  sp_punc: \s|\.|,|;|:|'|"
+
+contexts:
+  main:
+    - match: '<!--'
+      push: comment
+    - match: ^\s*$
+      push: blank_line
+
+  prototype:
+    - include: bold
+    - include: italics
+    - include: unnumbered_list
+    - include: numbered_list
+
+  blank_line:
+    - match: ^\#\s.*
+      scope: markup.heading.1.markdown
+      pop: true
+    - match: ^\#\#\s.*
+      scope: markup.heading.2.markdown
+      pop: true
+    - match: ^\#\#\#\s.*
+      scope: markup.heading.3.markdown
+      pop: true
+    - match: ^\#\#\#\#\s.*
+      scope: markup.heading.4.markdown
+      pop: true
+    - match: ^\s*\>.*
+      push: block_quote
+    - match: ^ {4}.*
+      scope: markup.raw.block.markdown
+      pop: true
+    - match: ^.*$
+      pop: true
+
+  comment:
+    - meta_include_prototype: false
+    - meta_scope: comment.block.html
+    - match: '-->'
+      pop: true
+
+  bold:
+    - match: \*\*(?!\s)|(?<=\s|^)__(?!\s) # Only if spaces before/after underscores.
+      push:
+        - meta_scope: markup.bold.markdown
+        - match: \*\*|(?<!\s)__(?={{sp_punc}})
+          pop: true
+
+  italics:
+    - match: \*(?!_|\s)|(?<=\s|^)_(?!_|\s)
+      push:
+        - meta_scope: markup.italic.markdown
+        - match: (?<!\*)\*(?!\*)|(?<!_)_(?={{sp_punc}})
+          pop: true
+
+  # Subsequent paragraphs of lists must be fully indented by >=4 spaces.
+  unnumbered_list:
+    - match: ^\s*-|\*|\+\s*
+      push:
+        - meta_scope: markup.list.unnumbered.markdown
+        - match: (?=^\s*$)
+          set: 
+            - meta_scope: markup.list.unnumbered.markdown
+            - match: (?=^\s{0,3}[^\s])
+              pop: true
+
+  numbered_list:
+    - match: ^\d+\.\s*
+      push:
+      - meta_scope: markup.list.numbered.markdown
+      - match: (?=^\s*$)
+        set: 
+          - meta_scope: markup.list.numbered.markdown
+          - match: (?=^\s{0,3}[^\s])
+            pop: true
+
+  block_quote:
+    - meta_scope: markup.quote.markdown
+    - match: ^$
+      pop: true
