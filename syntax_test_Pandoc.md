@@ -4,7 +4,7 @@
 title: YAML Block
 ---
 
-# Heading 1 {header identifier}
+# Heading 1 {#header_id}
 
 ## Heading 2 {-}
 
