@@ -1,6 +1,6 @@
 %YAML 1.2
 ---
-name: PandocSyntax
+name: Pandoc
 file_extensions: [md, pd]
 scope: text.html.markdown
 
@@ -9,18 +9,27 @@ variables:
 
 contexts:
   main:
-    - match: '<!--'
-      push: comment
-    - match: ^\s*$
+    - include: comment
+    - match: ^$
       push: blank_line
 
   prototype:
+    - include: text_formatting
+    - include: yaml
+    - include: figures
+    - include: footnotes
+    - include: citations
+    - include: links
+
+  text_formatting:
     - include: bold
     - include: italics
-    - include: unnumbered_list
-    - include: numbered_list
+    - include: verbatim
+    - include: math
 
   blank_line:
+    - include: unnumbered_list
+    - include: numbered_list
     - match: ^\#\s.*
       scope: markup.heading.1.markdown
       pop: true
@@ -33,19 +42,34 @@ contexts:
     - match: ^\#\#\#\#\s.*
       scope: markup.heading.4.markdown
       pop: true
-    - match: ^\s*\>.*
-      push: block_quote
-    - match: ^ {4}.*
+    - match: ^\s*\>.* # Block quote
+      push:
+        - meta_scope: markup.quote.markdown
+        - match: ^$
+          pop: true
+    - match: ^\| .*   # Line block (highlighted as block quote)
+      push:
+        - meta_scope: markup.quote.markdown
+        - match: ^$
+          pop: true
+    - match: ^ {4}.*  # Verbatim (code) block
       scope: markup.raw.block.markdown
       pop: true
-    - match: ^.*$
+    - match: ^(?:~~~|```) # Fenced code block
+      push:
+        - meta_scope: markup.raw.block.markdown
+        - match: ^(?:~~~|```).*
+          pop: true
+    - match: (?=^.*)
       pop: true
 
   comment:
-    - meta_include_prototype: false
-    - meta_scope: comment.block.html
-    - match: '-->'
-      pop: true
+    - match: '<!--'
+      push:
+      - meta_include_prototype: false
+      - meta_scope: comment.block.html
+      - match: '-->'
+        pop: true
 
   bold:
     - match: \*\*(?!\s)|(?<=\s|^)__(?!\s) # Only if spaces before/after underscores.
@@ -61,28 +85,107 @@ contexts:
         - match: (?<!\*)\*(?!\*)|(?<!_)_(?={{sp_punc}})
           pop: true
 
-  # Subsequent paragraphs of lists must be fully indented by >=4 spaces.
-  unnumbered_list:
-    - match: ^\s*-|\*|\+\s*
+  verbatim:
+    - match: '`(?!`*$)'
       push:
+        - meta_scope: markup.raw.inline.markdown
+        - match: '`'
+          pop: true
+
+  math:
+    - match: \$\$(?!\s)
+      push:
+        - meta_scope: markup.raw.inline.markdown
+        - match: (?<!\s)\$\$
+          pop: true
+
+  yaml:
+    - match: '^---$'
+      push:
+      - meta_include_prototype: false
+      - meta_scope: comment.block.html
+      - match: ^(?:---|\.\.\.)
+        pop: true
+
+  unnumbered_list:
+    - match: ^\s*(?:-|\*|\+)[^-]\s*
+      push:
+        - include: text_formatting
         - meta_scope: markup.list.unnumbered.markdown
         - match: (?=^\s*$)
           set: 
             - meta_scope: markup.list.unnumbered.markdown
+            - include: text_formatting
+              # Subsequent paragraphs included in lists must be fully indented by >=4 spaces.
             - match: (?=^\s{0,3}[^\s])
               pop: true
 
   numbered_list:
     - match: ^\d+\.\s*
       push:
-      - meta_scope: markup.list.numbered.markdown
-      - match: (?=^\s*$)
-        set: 
-          - meta_scope: markup.list.numbered.markdown
-          - match: (?=^\s{0,3}[^\s])
+        - include: text_formatting
+        - meta_scope: markup.list.numbered.markdown
+        - match: (?=^\s*$)
+          set: 
+            - meta_scope: markup.list.numbered.markdown
+            - include: text_formatting
+            - match: (?=^\s{0,3}[^\s])
+              pop: true
+
+  links:
+    - match: (?:^|\s)<[^\s|!].*>(?={{sp_punc}})     # Automatic link
+      scope: string.other.link.title.markdown
+    - match: (\[[^\s].*\])(\(.*\))                  # Inline link
+      captures: 
+        1: string.other.link.title.markdown
+        2: markup.underline.link.markdown
+    - match: (\[[^\s][^\]]*\])\s?(\[[^\]]*\])       # Reference link
+      captures: 
+        1: string.other.link.title.markdown
+        2: constant.other.reference.link.markdown
+    - match: ^(\s*\[.*\]\:)(.*)                     # Reference link definition
+      captures:
+        1: constant.other.reference.link.markdown
+        2: markup.underline.link.markdown
+    - match: (?:^|\s)(?<!\]\s)(\[)([^\^|@][^\]]*)(\])(?!\s\[)(?={{sp_punc}})    # Shortcut reference link
+      captures:
+        1: constant.other.reference.link.markdown
+        2: string.other.link.title.markdown
+        3: constant.other.reference.link.markdown
+
+  figures:
+    - match: \!\[
+      push:
+      - meta_scope: string.other.link.description.markdown
+      - include: text_formatting
+      - match: ^\s*$
+        pop: true
+      - match: \]
+        scope: string.other.link.description.markdown
+      - match: \(
+        set:
+          - meta_scope: markup.underline.link.markdown
+          - match: \)
             pop: true
 
-  block_quote:
-    - meta_scope: markup.quote.markdown
-    - match: ^$
-      pop: true
+  footnotes:
+    - match: \[\^.*\]               # Footnote marker
+      scope: constant.other.reference.link.markdown
+    - match: ^\s*(\[\^.*\]\:)(.*)   # Footnote definition
+      captures: 
+        1: string.other.link.title.markdown
+        2: text.html.markdown
+    - match: \^\[                   # Inline notes
+      scope: constant.other.reference.link.markdown
+      push:
+        - meta_scope: text.html.markdown
+        - match: \]
+          scope: constant.other.reference.link.markdown
+          pop: true
+
+  citations:
+    - match: \[[^\]]*@ # The @ can be anywhere in the link.
+      push:
+        - meta_scope: constant.other.reference.link.markdown
+        - match: \]
+          pop: true
