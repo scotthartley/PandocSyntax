@@ -26,6 +26,8 @@ contexts:
     - include: italics
     - include: verbatim
     - include: math
+    - include: subscript
+    - include: superscript
 
   blank_line:
     - include: unnumbered_list
@@ -150,6 +152,18 @@ contexts:
         - match: (?<!\s)\$
           scope: comment.block.html
           pop: true
+
+  subscript:
+    - match: (~).*(~)
+      captures:
+        1: comment.block.html
+        2: comment.block.html
+
+  superscript:
+    - match: (\^)[^\[].*(\^)
+      captures:
+        1: comment.block.html
+        2: comment.block.html
 
   yaml:
     - match: '^---$'

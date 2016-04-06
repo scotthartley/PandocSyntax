@@ -18,7 +18,7 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 ### Heading 3
 
 This paragraph has text in **bold**, *italics*, a `code block`, and an
-equation: $x = y$.
+equation: $x = y$. It also has text with sub~script~ and super^script^.
 
 #### Heading 4 {-}
 
@@ -37,14 +37,17 @@ equation: $x = y$.
 <!-- This text is part of a comment. -->
 
 This paragraph contains a [link](\url). This is a [reference link][ref]. This
-is an <inline link.html>. This is a [shortcut reference link]. With a
-![Figure](/path). This ![Figure 2] has the path specified separately. Lorem
-ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-in culpa qui officia deserunt mollit anim id est laborum.
+is an <inline link.html>. This is a [shortcut reference link].
+
+![Figure](/path)
+
+This inline ![Figure 2] has the path specified separately. Lorem ipsum dolor
+sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum.
 
 [ref]: \url
 
