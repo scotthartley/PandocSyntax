@@ -154,13 +154,13 @@ contexts:
           pop: true
 
   subscript:
-    - match: (~).*(~)
+    - match: (~)[^~]*(~)
       captures:
         1: comment.block.html
         2: comment.block.html
 
   superscript:
-    - match: (\^)[^\[].*(\^)
+    - match: (\^)[^\[\^]*(\^)
       captures:
         1: comment.block.html
         2: comment.block.html
