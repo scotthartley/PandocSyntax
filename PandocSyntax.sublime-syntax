@@ -3,6 +3,7 @@
 name: Pandoc
 file_extensions: [md, pd]
 scope: text.html.markdown
+comment: Scopes set for compatibility with Monokai Extended.
 
 variables:
   sp_punc: \s|\.|,|;|:|'|"
@@ -20,6 +21,8 @@ contexts:
     - include: footnotes
     - include: citations
     - include: links
+    - include: pandoc-figref
+    - include: pandoc-chem-struct
 
   text_formatting:
     - include: bold
@@ -279,3 +282,16 @@ contexts:
         - match: \]
           scope: comment.block.html
           pop: true
+
+  pandoc-figref:
+    - match: (\{\#\D\:)([^\}]*)(\})
+      captures:
+        1: comment.block.html
+        2: constant.other.reference.link.markdown
+        3: comment.block.html
+
+  pandoc-chem-struct:
+    - match: \s(s\:\{)([^\}]*)(\})
+      captures:
+        1: comment.block.html
+        3: comment.block.html

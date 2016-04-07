@@ -19,6 +19,8 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 This paragraph has text in **bold**, *italics*, a `code block`, and an
 equation: $x = y$. It also has text with sub~script~ and super^script^.
+Pandoc-figref {#f:figlabel} and pandoc-chem-struct s:{CH2Cl2} are also
+supported.
 
 #### Heading 4 {-}
 
