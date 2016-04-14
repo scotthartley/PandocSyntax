@@ -89,7 +89,7 @@ contexts:
         - meta_scope: markup.quote.markdown
         - match: ^$
           pop: true
-    - match: ^(\| )(.*)   # Line block (highlighted as block quote)
+    - match: ^(\| )(.*)(?<!\|)$  # Line block (highlighted as block quote)
       captures:
         1: comment.block.markdown
         2: markup.quote.markdown
