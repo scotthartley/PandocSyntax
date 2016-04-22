@@ -148,13 +148,11 @@ contexts:
           pop: true
 
   math:
-    - match: \$(?!\s)
-      scope: comment.block.html
-      push:
-        - meta_scope: markup.raw.inline.markdown
-        - match: (?<!\s)\$
-          scope: comment.block.html
-          pop: true
+    - match: (\$)(?!\s)([^\$]*)(?<!\s)(\$)
+      captures:
+        1: comment.block.html
+        2: markup.raw.block.markdown
+        3: comment.block.html
 
   subscript:
     - match: (~)[^~]*(~)
