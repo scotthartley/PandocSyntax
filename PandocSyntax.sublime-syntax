@@ -177,6 +177,7 @@ contexts:
   unnumbered_list:
     - match: ^\s*(?:-|\*|\+)[^-]\s*
       push:
+        - include: comment
         - include: text_formatting
         - meta_scope: markup.list.unnumbered.markdown
         - match: (?=^\s*$)
@@ -190,6 +191,7 @@ contexts:
   numbered_list:
     - match: ^\d+\.\s*
       push:
+        - include: comment
         - include: text_formatting
         - meta_scope: markup.list.numbered.markdown
         - match: (?=^\s*$)
