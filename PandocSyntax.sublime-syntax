@@ -264,6 +264,14 @@ contexts:
         2: constant.other.reference.link.markdown
         3: comment.block.html
         4: string.other.link.description.markdown
+      push: # Only allows subsequent pars if all indented. Not strictly correct.
+        - meta_scope: string.other.link.description.markdown
+        - match: (?=^\s*$)
+          set: 
+            - meta_scope: string.other.link.description.markdown
+            - include: text_formatting
+            - match: (?=^\s{0,3}[^\s])
+              pop: true
     - match: \^\[                   # Inline notes
       scope: comment.block.markdown
       push:
