@@ -124,6 +124,8 @@ contexts:
     - match: \*\*(?!\s)|(?<=\s|^)__(?!\s) # Only if spaces before/after underscores.
       scope: comment.block.html
       push:
+        - include: pandoc-figref
+        - include: pandoc-chem-struct
         - meta_scope: markup.bold.markdown
         - match: \*\*|(?<!\s)__(?={{sp_punc}})
           scope: comment.block.html
@@ -133,6 +135,8 @@ contexts:
     - match: \*(?!_|\s)|(?<=\s|^)_(?!_|\s)
       scope: comment.block.html
       push:
+        - include: pandoc-figref
+        - include: pandoc-chem-struct
         - meta_scope: markup.italic.markdown
         - match: (?<!\*)\*(?!\*)|(?<!_)_(?={{sp_punc}})
           scope: comment.block.html
