@@ -303,7 +303,7 @@ contexts:
         3: comment.block.html
 
   pandoc-chem-struct:
-    - match: \s(s\:\{)([^\}]*)(\})
+    - match: (s\:\{)([^\}]*)(\})
       captures:
         1: comment.block.html
         3: comment.block.html
