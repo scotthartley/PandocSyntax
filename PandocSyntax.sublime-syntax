@@ -243,6 +243,10 @@ contexts:
       push:
       - meta_scope: string.other.link.description.markdown
       - include: text_formatting
+      - match: \[    # Allow one set of embedded brackets.
+        push:
+        - match: \]
+          pop: true
       - match: ^\s*$
         pop: true
       - match: \]\s   # Must be a shortcut ref figure.
