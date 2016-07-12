@@ -132,7 +132,7 @@ contexts:
           pop: true
 
   italics:
-    - match: \*(?!_|\s)|(?<=\s|^)_(?!_|\s)
+    - match: \*(?!_|\s|\.)|(?<=\s|^)_(?!_|\s)
       scope: comment.block.html
       push:
         - include: pandoc-figref
