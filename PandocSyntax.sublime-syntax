@@ -261,7 +261,7 @@ contexts:
             pop: true
 
   footnotes:
-    - match: (\[\^)(.*)(\])[^\:]              # Footnote marker
+    - match: (\[\^)(.*?)(\])[^\:]              # Footnote marker
       captures:
         1: comment.block.html
         2: constant.other.reference.link.markdown
