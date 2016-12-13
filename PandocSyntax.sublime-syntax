@@ -159,7 +159,7 @@ contexts:
         3: comment.block.html
 
   subscript:
-    - match: (~)[^~]*(~)
+    - match: (?<!\\)(~)[^~]*(~)
       captures:
         1: comment.block.html
         2: comment.block.html
