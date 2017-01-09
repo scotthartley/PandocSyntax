@@ -217,7 +217,7 @@ contexts:
         1: comment.block.html
         2: string.other.link.title.markdown
         3: comment.block.html
-    - match: (\[)([^\s].*)(\]\()([^\)]*)(\))                  # Inline link
+    - match: (\[)([^\s][^\]]*)(\]\()([^\)]*)(\))                  # Inline link
       captures:
         1: comment.block.html
         2: string.other.link.title.markdown
