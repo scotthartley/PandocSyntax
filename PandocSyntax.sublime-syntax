@@ -11,6 +11,12 @@ variables:
 contexts:
   main:
     - include: comment
+    - match: ^(?=\#) # Allows file to start with header.
+      push: blank_line
+    - match: (?=\n)
+      push: body
+
+  body:
     - match: ^$
       push: blank_line
 
