@@ -10,7 +10,6 @@ variables:
 
 contexts:
   main:
-    - include: comment
     - match: ^(?=\#) # Allows file to start with header.
       push: blank_line
     - match: (?=\n)
@@ -21,6 +20,7 @@ contexts:
       push: blank_line
 
   prototype:
+    - include: comment
     - include: text_formatting
     - include: yaml
     - include: figures
