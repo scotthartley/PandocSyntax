@@ -28,6 +28,7 @@ contexts:
     - include: citations
     - include: links
     - include: pandoc-filters
+    - include: latex
 
   text_formatting:
     - include: bold
@@ -166,7 +167,7 @@ contexts:
         3: comment.block.html
 
   subscript:
-    - match: (?<!\\)(~)[^~]*(~)
+    - match: (?<!\\)(~)[^~]+(~)
       captures:
         1: comment.block.html
         2: comment.block.html
@@ -186,7 +187,7 @@ contexts:
         pop: true
 
   unnumbered_list:
-    - match: ^\s*(?:-|\*|\+)[^-]\s*
+    - match: ^\s*((?:-|\*|\+))[^-]\s*
       push:
         - include: comment
         - include: text_formatting
@@ -306,6 +307,17 @@ contexts:
         - match: \]
           scope: comment.block.html
           pop: true
+
+  latex:
+    - match: \\begin\{(\w*)\}
+      scope: comment.block.markdown
+      push:
+        - meta_scope: markup.raw.block.markdown
+        - match: \\end\{\1\}
+          scope: comment.block.markdown
+          pop: true
+    - match: \\\w+(\{[^\}]*\})?
+      scope: comment.block.markdown
 
   pandoc-figref:
     - match: (\{\#\D\:)([^\}]*)(\})
