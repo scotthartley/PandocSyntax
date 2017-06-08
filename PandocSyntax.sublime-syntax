@@ -160,11 +160,12 @@ contexts:
           pop: true
 
   math:
-    - match: (\$)(?!\s)([^\$]*)(?<!\s)(\$)
+    - match: (\$)(?!\s)([^\$]*)(?<!\s)(\$)(\{[^\}]*\})?
       captures:
         1: comment.block.html
         2: markup.raw.block.markdown
         3: comment.block.html
+        4: comment.block.html # Attributes
 
   subscript:
     - match: (?<!\\)(~)[^~]+(~)
@@ -265,7 +266,7 @@ contexts:
         scope: comment.block.html
         set:
           - meta_scope: markup.underline.link.markdown
-          - match: \)
+          - match: \)(\{[^\}]*\})? # Allows optional figure attributes
             scope: comment.block.html
             pop: true
 
@@ -307,6 +308,8 @@ contexts:
         - match: \]
           scope: comment.block.html
           pop: true
+    - match: \@[\w:]*
+      scope: constant.other.reference.link.markdown
 
   latex:
     - match: \\begin\{(\w*)\}
