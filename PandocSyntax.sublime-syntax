@@ -287,7 +287,6 @@ contexts:
         - match: (?=^\s*$)
           set: 
             - meta_scope: string.other.link.description.markdown
-            - include: text_formatting
             - match: (?=^\s{0,3}[^\s])
               pop: true
     - match: \^\[                   # Inline notes
