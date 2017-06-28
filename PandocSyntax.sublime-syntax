@@ -315,7 +315,7 @@ contexts:
         - match: \]
           scope: comment.block.html
           pop: true
-    - match: (\@[\w:]*)(\s?\[([^\]]*)\])? # Without opening bracket
+    - match: (\@[\w:-]*)(\s?\[([^\]]*)\])? # Without opening bracket
       captures:
         1: constant.other.reference.link.markdown
         2: comment.block.html # Allows [] to close citation to separate
