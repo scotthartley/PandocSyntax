@@ -243,7 +243,7 @@ contexts:
         2: constant.other.reference.link.markdown
         3: comment.block.html
         4: markup.underline.link.markdown
-    - match: (?:^|\s)(?<!\]\s)(\[)([^\^|@\-][^\]]*)(\])(?!\s\[)(?={{sp_punc}})    # Shortcut reference link
+    - match: (?:^|\s)(?<!\]\s)(\[)([^\^|\-][^\]@]*)(\])(?!\s\[)(?={{sp_punc}})    # Shortcut reference link
       captures:
         1: comment.block.html
         2: string.other.link.title.markdown
@@ -315,11 +315,11 @@ contexts:
         - match: \]
           scope: comment.block.html
           pop: true
-    - match: (\@[\w:-]*)(\s?\[([^\]]*)\])? # Without opening bracket
+    - match: (\s|^)(\@[\w:-]*)(\s?\[([^\]]*)\])? # Without opening bracket
       captures:
-        1: constant.other.reference.link.markdown
-        2: comment.block.html # Allows [] to close citation to separate
-        3: constant.other.reference.link.markdown
+        2: constant.other.reference.link.markdown
+        3: comment.block.html # Allows [] to close citation to separate
+        4: constant.other.reference.link.markdown
 
   latex:
     - match: \\begin\{(\w*)\}
