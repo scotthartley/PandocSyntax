@@ -237,12 +237,13 @@ contexts:
         3: comment.block.html
         4: constant.other.reference.link.markdown
         5: comment.block.html
-    - match: ^\s*(\[)(.*)(\]\:)(.*)                     # Reference link definition
+    - match: ^\s*(\[)(.*)(\]\:)(.*)(\{.*\})               # Reference link definition
       captures:
         1: comment.block.html
         2: constant.other.reference.link.markdown
         3: comment.block.html
         4: markup.underline.link.markdown
+        5: comment.block.html
     - match: (?:^|\s)(?<!\]\s)(\[)([^\^|\-@][^\]@]*)(\])(?!\s\[)(?={{sp_punc}})    # Shortcut reference link
       captures:
         1: comment.block.html
