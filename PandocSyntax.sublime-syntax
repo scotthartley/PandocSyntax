@@ -348,7 +348,7 @@ contexts:
         3: comment.block.html
 
   pandoc-cmpdnames:
-    - match: (?<!\:)(\{)(\w*)(\})
+    - match: (?<!\:)(\{)([\w-]*)(\})
       captures:
         1: comment.block.html
         2: markup.bold.markdown
