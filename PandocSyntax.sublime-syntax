@@ -43,7 +43,8 @@ contexts:
 
   pandoc-filters:
     - include: pandoc-figref
-    - include: pandoc-chem-struct    
+    - include: pandoc-chem-struct
+    - include: pandoc-cmpdnames
 
   blank_line:
     - include: unnumbered_list
@@ -254,9 +255,9 @@ contexts:
     - match: \!\[
       scope: comment.block.html
       push:
+      - include: text_formatting
       - include: pandoc-filters
       - meta_scope: string.other.link.description.markdown
-      - include: text_formatting
       - match: \[    # Allow one set of embedded brackets.
         push:
         - match: \]
@@ -344,4 +345,11 @@ contexts:
     - match: (s\:\{)([^\}]*)(\})
       captures:
         1: comment.block.html
+        3: comment.block.html
+
+  pandoc-cmpdnames:
+    - match: (?<!\:)(\{)(\w*)(\})
+      captures:
+        1: comment.block.html
+        2: markup.bold.markdown
         3: comment.block.html
