@@ -331,7 +331,7 @@ contexts:
         - match: \\end\{\1\}
           scope: comment.block.markdown
           pop: true
-    - match: \\\w+(\{[^\}]*\})?
+    - match: \\\w+((\{[^\}]*\})|(\[[^\]]*\]))*
       scope: comment.block.markdown
 
   pandoc-figref:
