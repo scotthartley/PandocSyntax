@@ -27,6 +27,7 @@ contexts:
 
   inline-links-citations-etc:
     - include: figures
+    - include: tables
     - include: links
     - include: citations
     - include: footnotes
@@ -274,6 +275,18 @@ contexts:
           - match: \)(\{[^\}]*\})? # Allows optional figure attributes
             scope: comment.block.html
             pop: true
+
+  tables:
+    - match: "^(Table)?:"
+      scope: comment.block.html
+      push:
+        - include: text_formatting
+        - include: pandoc-filters
+        - meta_scope: string.other.link.description.markdown
+        - match: \{[^\}]*\}$
+          scope: comment.block.html
+        - match: ^$
+          pop: true
 
   footnotes:
     - match: (\[\^)(.*?)(\])[^\:]              # Footnote marker
