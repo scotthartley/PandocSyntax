@@ -165,7 +165,7 @@ contexts:
           pop: true
 
   math:
-    - match: (\$)(?!\s)([^\$]*)(?<!\s)(\$)(\{[^\}]*\})?
+    - match: (\$)(?!\s)([^\$]*)(?<!\s)(\$)(?![0-9])(\{[^\}]*\})?
       captures:
         1: comment.block.html
         2: markup.raw.block.markdown
