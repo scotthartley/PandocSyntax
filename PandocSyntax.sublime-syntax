@@ -94,20 +94,16 @@ contexts:
         1: comment.block.html
         2: markup.heading.4.markdown
       pop: true
-    - match: ^\s*(\>)(.*) # Block quote
-      captures:
-        1: comment.block.markdown
-        2: markup.quote.markdown
+    - match: ^\s*(\>) # Block quote
+      scope: comment.block.markdown
       push: # Allows "lazy" block quotes but continues to comment leading >
         - match: ^\s*\>
           scope: comment.block.markdown
         - meta_scope: markup.quote.markdown
         - match: ^$
           pop: true
-    - match: ^(\| )(.*)(?<!\|)$  # Line block (highlighted as block quote)
-      captures:
-        1: comment.block.markdown
-        2: markup.quote.markdown
+    - match: ^(\| )  # Line block (highlighted as block quote)
+      scope: comment.block.markdown
       push:
         - match: ^\| 
           scope: comment.block.markdown
