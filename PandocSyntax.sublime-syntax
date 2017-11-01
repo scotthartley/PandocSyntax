@@ -216,7 +216,7 @@ contexts:
               pop: true
 
   links:
-    - match: (?:^|\(|\s)(<)([^\s|!].*)(>)(?={{sp_punc}}|\))     # Automatic link
+    - match: (?:^|\(|\s)(<)([^\s|!][^>]*)(>)(?={{sp_punc}}|\))     # Automatic link (also html tags)
       captures:
         1: comment.block.html
         2: string.other.link.title.markdown
