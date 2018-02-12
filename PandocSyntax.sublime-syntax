@@ -306,6 +306,7 @@ contexts:
     - match: \^\[                   # Inline notes
       scope: comment.block.markdown
       push:
+        - include: citations
         - meta_scope: string.other.link.description.markdown
         - match: \]
           scope: comment.block.markdown
