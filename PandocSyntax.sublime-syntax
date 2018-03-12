@@ -1,7 +1,7 @@
 %YAML 1.2
 ---
 name: Pandoc
-file_extensions: [md, pd]
+file_extensions: [md, pd, pandoc, markdown]
 scope: text.html.markdown
 comment: Scopes set for compatibility with Monokai Extended.
 
@@ -136,6 +136,8 @@ contexts:
       scope: comment.block.html
       push:
         - include: inline-links-citations-etc
+        - include: superscript
+        - include: subscript
         - meta_scope: markup.bold.markdown
         - match: \*\*|(?<!\s)__(?={{sp_punc}})
           scope: comment.block.html
@@ -146,6 +148,8 @@ contexts:
       scope: comment.block.html
       push:
         - include: inline-links-citations-etc
+        - include: superscript
+        - include: subscript
         - meta_scope: markup.italic.markdown
         - match: (?<!\*)\*(?!\*)|(?<!_)_(?={{sp_punc}})
           scope: comment.block.html
