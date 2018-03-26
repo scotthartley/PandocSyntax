@@ -338,7 +338,7 @@ contexts:
         4: constant.other.reference.link.markdown
 
   latex:
-    - match: \\begin\{(\w*)\}
+    - match: \\begin\{(\w*)\}.*
       scope: comment.block.markdown
       push:
         - meta_scope: markup.raw.block.markdown
