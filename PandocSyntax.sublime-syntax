@@ -41,6 +41,7 @@ contexts:
     - include: math
     - include: subscript
     - include: superscript
+    - include: strikethrough
 
   pandoc-filters:
     - include: pandoc-figref
@@ -173,7 +174,13 @@ contexts:
         4: comment.block.html # Attributes
 
   subscript:
-    - match: (?<!\\)(~)[^~]+(~)
+    - match: (?<!\\)(?<!~)(~)[^~]+(~)
+      captures:
+        1: comment.block.html
+        2: comment.block.html
+
+  strikethrough:
+    - match: (?<!\\)(~~).+(~~)
       captures:
         1: comment.block.html
         2: comment.block.html
