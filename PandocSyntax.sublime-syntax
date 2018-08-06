@@ -106,7 +106,7 @@ contexts:
     - match: ^(\| )  # Line block (highlighted as block quote)
       scope: comment.block.markdown
       push:
-        - match: ^\| 
+        - match: ^\|
           scope: comment.block.markdown
         - meta_scope: markup.quote.markdown
         - match: ^$
@@ -117,6 +117,7 @@ contexts:
     - match: ^(~~~|```) # Fenced code block
       scope: comment.block.markdown
       push:
+        - meta_include_prototype: false
         - meta_scope: markup.raw.block.markdown
         - match: ^(?:~~~|```).*
           scope: comment.block.markdown
@@ -206,7 +207,7 @@ contexts:
         - include: text_formatting
         - meta_scope: markup.list.unnumbered.markdown
         - match: (?=^\s*$)
-          set: 
+          set:
             - meta_scope: markup.list.unnumbered.markdown
             - include: text_formatting
               # Subsequent paragraphs included in lists must be fully indented by >=4 spaces.
@@ -220,7 +221,7 @@ contexts:
         - include: text_formatting
         - meta_scope: markup.list.numbered.markdown
         - match: (?=^\s*$)
-          set: 
+          set:
             - meta_scope: markup.list.numbered.markdown
             - include: text_formatting
             - match: (?=^\s{0,3}[^\s])
@@ -302,7 +303,7 @@ contexts:
         2: constant.other.reference.link.markdown
         3: comment.block.html
     - match: ^\s*(\[\^)(.*)(\]\:)(.*)   # Footnote definition
-      captures: 
+      captures:
         1: comment.block.html
         2: constant.other.reference.link.markdown
         3: comment.block.html
@@ -310,7 +311,7 @@ contexts:
       push: # Only allows subsequent pars if all indented. Not strictly correct.
         - meta_scope: string.other.link.description.markdown
         - match: (?=^\s*$)
-          set: 
+          set:
             - meta_scope: string.other.link.description.markdown
             - match: (?=^\s{0,3}[^\s])
               pop: true
