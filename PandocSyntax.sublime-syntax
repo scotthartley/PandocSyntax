@@ -6,7 +6,7 @@ scope: text.html.markdown
 comment: Scopes set for compatibility with Monokai Extended.
 
 variables:
-  sp_punc: \s|\.|,|;|:|'|"
+  sp_punc: \s|\.|,|;|:|'|"|\(|\)
 
 contexts:
   main:
