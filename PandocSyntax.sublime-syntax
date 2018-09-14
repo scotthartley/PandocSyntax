@@ -51,6 +51,7 @@ contexts:
   blank_line:
     - include: unnumbered_list
     - include: numbered_list
+    - include: lettered_list
     - match: ^(\#)\s(.*)(\{.*\})$
       captures:
         1: comment.block.html
@@ -220,6 +221,20 @@ contexts:
         - include: comment
         - include: text_formatting
         - meta_scope: markup.list.numbered.markdown
+        - match: (?=^\s*$)
+          set:
+            - meta_scope: markup.list.numbered.markdown
+            - include: text_formatting
+            - match: (?=^\s{0,3}[^\s])
+              pop: true
+
+  lettered_list:
+    - match: ^\(?[a-z,A-Z]+[\.\)]\s*
+      push:
+        - include: comment
+        - include: text_formatting
+        # - meta_scope: markup.list.numbered.markdown
+        - meta_scope: comment.block.html
         - match: (?=^\s*$)
           set:
             - meta_scope: markup.list.numbered.markdown
