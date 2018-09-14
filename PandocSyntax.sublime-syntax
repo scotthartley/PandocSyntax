@@ -233,8 +233,7 @@ contexts:
       push:
         - include: comment
         - include: text_formatting
-        # - meta_scope: markup.list.numbered.markdown
-        - meta_scope: comment.block.html
+        - meta_scope: markup.list.numbered.markdown
         - match: (?=^\s*$)
           set:
             - meta_scope: markup.list.numbered.markdown
