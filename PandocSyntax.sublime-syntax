@@ -268,7 +268,7 @@ contexts:
         3: comment.block.html
         4: markup.underline.link.markdown
         5: comment.block.html
-    - match: (?:^|\s)(?<!\]\s)(\[)([^\^|\-@][^\]@]*)(\][^\(])(?!\s\[)(?={{sp_punc}})    # Shortcut reference link
+    - match: (?:^|\s)(?<!\]\s)(\[)([^\^|\-@][^\]@]*)(\])(?![\(\[])(?={{sp_punc}})    # Shortcut reference link
       captures:
         1: comment.block.html
         2: string.other.link.title.markdown
