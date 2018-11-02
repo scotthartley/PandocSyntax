@@ -311,18 +311,19 @@ contexts:
           pop: true
 
   footnotes:
-    - match: (\[\^)(.*?)(\])[^\:]              # Footnote marker
+    - match: (\[\^)([^\]]*?)(\])[^\:]              # Footnote marker
       captures:
         1: comment.block.html
         2: constant.other.reference.link.markdown
         3: comment.block.html
-    - match: ^\s*(\[\^)(.*)(\]\:)(.*)   # Footnote definition
+    - match: ^\s*(\[\^)(.*)(\]\:)   # Footnote definition
       captures:
         1: comment.block.html
         2: constant.other.reference.link.markdown
         3: comment.block.html
-        4: string.other.link.description.markdown
       push: # Only allows subsequent pars if all indented. Not strictly correct.
+        - include: text_formatting
+        - include: inline-links-citations-etc
         - meta_scope: string.other.link.description.markdown
         - match: (?=^\s*$)
           set:
