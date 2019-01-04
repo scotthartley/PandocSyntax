@@ -1,7 +1,7 @@
 %YAML 1.2
 ---
 name: Pandoc
-file_extensions: [md, pd, pandoc, markdown]
+file_extensions: [pandoc, pd, md, markdown]
 scope: text.html.markdown
 comment: Scopes set for compatibility with Monokai Extended.
 
@@ -47,6 +47,7 @@ contexts:
     - include: pandoc-figref
     - include: pandoc-chem-struct
     - include: pandoc-cmpdnames
+    - include: pandoc-include
 
   blank_line:
     - include: unnumbered_list
@@ -389,4 +390,11 @@ contexts:
       captures:
         1: comment.block.html
         2: markup.bold.markdown
+        3: comment.block.html
+
+  pandoc-include:
+    - match: ^(\!\()(.*)(\))$
+      captures:
+        1: comment.block.html
+        2: markup.underline.link.markdown
         3: comment.block.html
