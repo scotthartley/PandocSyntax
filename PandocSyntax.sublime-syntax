@@ -336,6 +336,13 @@ contexts:
       push:
         - include: citations
         - meta_scope: string.other.link.description.markdown
+        - match: \[
+          scope: comment.block.markdown
+          push:
+          - include: citations
+          - match: \]
+            scope: comment.block.markdown
+            pop: true
         - match: \]
           scope: comment.block.markdown
           pop: true
