@@ -105,7 +105,7 @@ contexts:
         - meta_scope: markup.quote.markdown
         - match: ^$
           pop: true
-    - match: ^(\| )  # Line block (highlighted as block quote)
+    - match: ^(\| )(?!.*[^\\]\|)  # Line block (highlighted as block quote)
       scope: comment.block.markdown
       push:
         - match: ^\|
@@ -300,6 +300,17 @@ contexts:
             pop: true
 
   tables:
+    - match: ^(\| )(?=.*\|)  # Table
+      scope: comment.block.markdown
+      push:
+        - include: text_formatting
+        - include: pandoc-filters
+        - match: \|
+          scope: comment.block.markdown
+        - match: '(?<!\w)[\-\:](?!.*\w)'
+          scope: comment.block.markdown
+        - match: (?=^[^\|])
+          pop: true
     - match: "^(Table)?:"
       scope: comment.block.html
       push:
