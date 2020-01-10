@@ -116,7 +116,7 @@ contexts:
     - match: ^ {4}.*  # Verbatim (code) block
       scope: markup.raw.block.markdown
       pop: true
-    - match: ^(~~~|```) # Fenced code block
+    - match: ^(~~~|```).*  # Fenced code block
       scope: comment.block.markdown
       push:
         - meta_include_prototype: false
@@ -160,7 +160,7 @@ contexts:
           pop: true
 
   verbatim:
-    - match: '`(?!`*$)'
+    - match: '(?<!`)`(?!`+)'
       scope: comment.block.html
       push:
         - meta_scope: markup.raw.inline.markdown
