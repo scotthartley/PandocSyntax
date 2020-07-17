@@ -98,18 +98,18 @@ contexts:
         2: markup.heading.4.markdown
       pop: true
     - match: ^\s*(\>) # Block quote
-      scope: comment.block.markdown
+      scope: comment.block.html
       push: # Allows "lazy" block quotes but continues to comment leading >
         - match: ^\s*\>
-          scope: comment.block.markdown
+          scope: comment.block.html
         - meta_scope: markup.quote.markdown
         - match: ^$
           pop: true
     - match: ^(\| )(?!.*[^\\]\|)  # Line block (highlighted as block quote)
-      scope: comment.block.markdown
+      scope: comment.block.html
       push:
         - match: ^\|
-          scope: comment.block.markdown
+          scope: comment.block.html
         - meta_scope: markup.quote.markdown
         - match: ^$
           pop: true
@@ -117,12 +117,12 @@ contexts:
       scope: markup.raw.block.markdown
       pop: true
     - match: ^(~~~|```).*  # Fenced code block
-      scope: comment.block.markdown
+      scope: comment.block.html
       push:
         - meta_include_prototype: false
         - meta_scope: markup.raw.block.markdown
         - match: ^(?:~~~|```).*
-          scope: comment.block.markdown
+          scope: comment.block.html
           pop: true
     - match: (?=^.*)
       pop: true
@@ -131,7 +131,7 @@ contexts:
     - match: '<!--'
       push:
       - meta_include_prototype: false
-      - meta_scope: comment.block.html
+      - meta_scope: comment.block.markdown
       - match: '-->'
         pop: true
 
@@ -301,14 +301,14 @@ contexts:
 
   tables:
     - match: ^(\| )(?=.*\|)  # Table
-      scope: comment.block.markdown
+      scope: comment.block.html
       push:
         - include: text_formatting
         - include: pandoc-filters
         - match: \|
-          scope: comment.block.markdown
+          scope: comment.block.html
         - match: '(?<!\w)[\-\:](?!.*\w)'
-          scope: comment.block.markdown
+          scope: comment.block.html
         - match: (?=^[^\|])
           pop: true
     - match: "^(Table)?:"
@@ -343,7 +343,7 @@ contexts:
             - match: (?=^\s{0,3}[^\s])
               pop: true
     - match: \^\[                   # Inline notes
-      scope: comment.block.markdown
+      scope: comment.block.html
       push:
         - include: citations
         - meta_scope: string.other.link.description.markdown
@@ -353,13 +353,13 @@ contexts:
           - match: \]
             pop: true
         - match: \]
-          scope: comment.block.markdown
+          scope: comment.block.html
           pop: true
 
   citations:
     - match: (\[)([^\]]*\@) # The @ can be anywhere in the link.
       captures:
-        1: comment.block.markdown
+        1: comment.block.html
         2: constant.other.reference.link.markdown
       push:
         - meta_scope: constant.other.reference.link.markdown
@@ -379,14 +379,14 @@ contexts:
 
   latex:
     - match: \\begin\{(\w*)\}.*
-      scope: comment.block.markdown
+      scope: comment.block.html
       push:
         - meta_scope: markup.raw.block.markdown
         - match: \\end\{\1\}
-          scope: comment.block.markdown
+          scope: comment.block.html
           pop: true
     - match: \\\w+((\{[^\}]*\})|(\[[^\]]*\]))*
-      scope: comment.block.markdown
+      scope: comment.block.html
 
   pandoc-figref:
     - match: (\{\#\D\:)([^\}]*)(\})
