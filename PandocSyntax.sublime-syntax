@@ -198,7 +198,7 @@ contexts:
     - match: '^---$'
       push:
       - meta_include_prototype: false
-      - meta_scope: comment.block.html
+      - meta_scope: comment.block.markdown
       - match: ^(?:---|\.\.\.)
         pop: true
 
