@@ -262,7 +262,7 @@ contexts:
         3: comment.block.html
         4: constant.other.reference.link.markdown
         5: comment.block.html
-    - match: ^\s*(\[)([^^].*)(\]\:)([^\{]*)(\{.*\})?      # Reference link definition w attributes
+    - match: ^\s*(\[)([^^].*)(\]\:) ([^\{]*)(\{.*\})?      # Reference link definition w attributes
       captures:
         1: comment.block.html
         2: constant.other.reference.link.markdown
