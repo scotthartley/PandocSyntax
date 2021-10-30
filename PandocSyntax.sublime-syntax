@@ -33,6 +33,7 @@ contexts:
     - include: footnotes
     - include: pandoc-filters
     - include: latex
+    - include: fenced_divs
 
   text_formatting:
     - include: bold
@@ -311,7 +312,7 @@ contexts:
           scope: comment.block.html
         - match: (?=^[^\|])
           pop: true
-    - match: "^(Table)?:"
+    - match: "^(Table)?:(?!:)"
       scope: comment.block.html
       push:
         - include: text_formatting
@@ -321,6 +322,10 @@ contexts:
           scope: comment.block.html
         - match: ^$
           pop: true
+
+  fenced_divs:
+    - match: '^:::.*'
+      scope: comment.block.html
 
   footnotes:
     - match: (\[\^)([^\]]*?)(\])[^\:]              # Footnote marker
