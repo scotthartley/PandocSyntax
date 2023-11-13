@@ -98,6 +98,17 @@ contexts:
         1: comment.block.html
         2: markup.heading.4.markdown
       pop: true
+    - match: ^(\#\#\#\#\#)\s(.*)(\{.*\})$
+      captures:
+        1: comment.block.html
+        2: markup.heading.1.markdown
+        3: comment.block.html
+      pop: true
+    - match: ^(\#\#\#\#\#)\s(.*)
+      captures:
+        1: comment.block.html
+        2: markup.heading.5.markdown
+      pop: true
     - match: ^\s*(\>) # Block quote
       scope: comment.block.html
       push: # Allows "lazy" block quotes but continues to comment leading >
