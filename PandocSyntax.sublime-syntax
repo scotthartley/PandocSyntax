@@ -57,72 +57,72 @@ contexts:
     - include: lettered_list
     - match: ^(\#)\s(.*)(\{.*\})$
       captures:
-        1: comment.block.html
+        1: comment
         2: markup.heading.1.markdown
-        3: comment.block.html
+        3: comment
       pop: true
     - match: ^(\#)\s(.*)
       captures:
-        1: comment.block.html
+        1: comment
         2: markup.heading.1.markdown
       pop: true
     - match: ^(\#\#)\s(.*)(\{.*\})$
       captures:
-        1: comment.block.html
+        1: comment
         2: markup.heading.1.markdown
-        3: comment.block.html
+        3: comment
       pop: true
     - match: ^(\#\#)\s(.*)
       captures:
-        1: comment.block.html
+        1: comment
         2: markup.heading.2.markdown
       pop: true
     - match: ^(\#\#\#)\s(.*)(\{.*\})$
       captures:
-        1: comment.block.html
+        1: comment
         2: markup.heading.1.markdown
-        3: comment.block.html
+        3: comment
       pop: true
     - match: ^(\#\#\#)\s(.*)
       captures:
-        1: comment.block.html
+        1: comment
         2: markup.heading.3.markdown
       pop: true
     - match: ^(\#\#\#\#)\s(.*)(\{.*\})$
       captures:
-        1: comment.block.html
+        1: comment
         2: markup.heading.1.markdown
-        3: comment.block.html
+        3: comment
       pop: true
     - match: ^(\#\#\#\#)\s(.*)
       captures:
-        1: comment.block.html
+        1: comment
         2: markup.heading.4.markdown
       pop: true
     - match: ^(\#\#\#\#\#)\s(.*)(\{.*\})$
       captures:
-        1: comment.block.html
+        1: comment
         2: markup.heading.1.markdown
-        3: comment.block.html
+        3: comment
       pop: true
     - match: ^(\#\#\#\#\#)\s(.*)
       captures:
-        1: comment.block.html
+        1: comment
         2: markup.heading.5.markdown
       pop: true
     - match: ^\s*(\>) # Block quote
-      scope: comment.block.html
+      scope: comment
       push: # Allows "lazy" block quotes but continues to comment leading >
         - match: ^\s*\>
-          scope: comment.block.html
+          scope: comment
         - meta_scope: markup.quote.markdown
         - match: ^$
           pop: true
     - match: ^(\| )(?!.*[^\\]\|)  # Line block (highlighted as block quote)
-      scope: comment.block.html
+      scope: comment
       push:
         - match: ^\|
-          scope: comment.block.html
+          scope: comment
         - meta_scope: markup.quote.markdown
         - match: ^$
           pop: true
@@ -130,12 +130,12 @@ contexts:
       scope: markup.raw.block.markdown
       pop: true
     - match: ^(~~~|```).*  # Fenced code block
-      scope: comment.block.html
+      scope: comment
       push:
         - meta_include_prototype: false
         - meta_scope: markup.raw.block.markdown
         - match: ^(?:~~~|```).*
-          scope: comment.block.html
+          scope: comment
           pop: true
     - match: (?=^.*)
       pop: true
@@ -144,68 +144,68 @@ contexts:
     - match: '<!--'
       push:
       - meta_include_prototype: false
-      - meta_scope: comment.block.markdown
+      - meta_scope: comment
       - match: '-->'
         pop: true
 
   bold:
     - match: \*\*(?!\s)|(?<=\s|^)__(?!\s) # Only if spaces before/after underscores.
-      scope: comment.block.html
+      scope: comment
       push:
         - include: inline-links-citations-etc
         - include: superscript
         - include: subscript
         - meta_scope: markup.bold.markdown
         - match: \*\*(?!\*)|(?<!\s)__(?={{sp_punc}})
-          scope: comment.block.html
+          scope: comment
           pop: true
 
   italics:
     - match: '(?<!\\)\*(?!_|\s|\.)|(?<=\s|^)_(?!_|\s)'
-      scope: comment.block.html
+      scope: comment
       push:
         - include: inline-links-citations-etc
         - include: superscript
         - include: subscript
         - meta_scope: markup.italic.markdown
         - match: (?<!\*)\*(?!\*)|(?<!_)_(?={{sp_punc}})
-          scope: comment.block.html
+          scope: comment
           pop: true
 
   verbatim:
     - match: '(?<!`)`(?!`+)'
-      scope: comment.block.html
+      scope: comment
       push:
         - meta_scope: markup.raw.inline.markdown
         - match: '`'
-          scope: comment.block.html
+          scope: comment
           pop: true
 
   math:
     - match: (\$\$?)(?!\s)([^\$]*)(?<!\s)(\$\$?)(?![0-9])(\{[^\}]*\})?
       captures:
-        1: comment.block.html
+        1: comment
         2: markup.raw.block.markdown
-        3: comment.block.html
-        4: comment.block.html # Attributes
+        3: comment
+        4: comment # Attributes
 
   subscript:
     - match: (?<!\\)(?<!~)(~)[^~]+(~)
       captures:
-        1: comment.block.html
-        2: comment.block.html
+        1: comment
+        2: comment
 
   strikethrough:
     - match: (?<!\\)(~~).+(~~)
       captures:
-        1: comment.block.html
-        2: comment.block.html
+        1: comment
+        2: comment
 
   superscript:
     - match: (\^)[^\[\^]*(\^)
       captures:
-        1: comment.block.html
-        2: comment.block.html
+        1: comment
+        2: comment
 
   yaml:
     - match: '^---$'
@@ -258,39 +258,39 @@ contexts:
   links:
     - match: (?:^|\(|\s)(<)([^\s|!][^>]*)(>)(?={{sp_punc}}|\))     # Automatic link (also html tags)
       captures:
-        1: comment.block.html
+        1: comment
         2: string.other.link.title.markdown
-        3: comment.block.html
+        3: comment
     - match: (\[)([^\s][^\]]*)(\]\()([^\)]*)(\))                  # Inline link
       captures:
-        1: comment.block.html
+        1: comment
         2: string.other.link.title.markdown
-        3: comment.block.html
+        3: comment
         4: markup.underline.link.markdown
-        5: comment.block.html
+        5: comment
     - match: (\[)([^\s][^\]]*)(\]\s?\[)([^\]]*)(\])       # Reference link
       captures:
-        1: comment.block.html
+        1: comment
         2: string.other.link.title.markdown
-        3: comment.block.html
+        3: comment
         4: constant.other.reference.link.markdown
-        5: comment.block.html
+        5: comment
     - match: ^\s*(\[)([^^].*)(\]\:) ([^ ]*)( \{.*\})?      # Reference link definition w attributes
       captures:
-        1: comment.block.html
+        1: comment
         2: constant.other.reference.link.markdown
-        3: comment.block.html
+        3: comment
         4: markup.underline.link.markdown
-        5: comment.block.html
+        5: comment
     - match: (?:^|\s)(?<!\]\s)(\[)([^\^|\-@][^\]@]*)(\])(?![\(\[])(?={{sp_punc}})    # Shortcut reference link
       captures:
-        1: comment.block.html
+        1: comment
         2: string.other.link.title.markdown
-        3: comment.block.html
+        3: comment
 
   figures:
     - match: \!\[
-      scope: comment.block.html
+      scope: comment
       push:
       - include: text_formatting
       - include: pandoc-filters
@@ -302,54 +302,54 @@ contexts:
       - match: ^\s*$
         pop: true
       - match: \]\s   # Must be a shortcut ref figure.
-        scope: comment.block.html
+        scope: comment
         pop: true
       - match: \]\(
-        scope: comment.block.html
+        scope: comment
         set:
           - meta_scope: markup.underline.link.markdown
           - match: \)(\{[^\}]*\})? # Allows optional figure attributes
-            scope: comment.block.html
+            scope: comment
             pop: true
 
   tables:
     - match: ^(\| )(?=.*\|)  # Table
-      scope: comment.block.html
+      scope: comment
       push:
         - include: text_formatting
         - include: pandoc-filters
         - match: \|
-          scope: comment.block.html
+          scope: comment
         - match: '(?<!\w)[\-\:](?!.*\w)'
-          scope: comment.block.html
+          scope: comment
         - match: (?=^[^\|])
           pop: true
     - match: "^(Table)?:(?!:)"
-      scope: comment.block.html
+      scope: comment
       push:
         - include: text_formatting
         - include: pandoc-filters
         - meta_scope: string.other.link.description.markdown
         - match: \{[^\}]*\}$
-          scope: comment.block.html
+          scope: comment
         - match: ^$
           pop: true
 
   fenced_divs:
     - match: '^:::.*'
-      scope: comment.block.html
+      scope: comment
 
   footnotes:
     - match: (\[\^)([^\]]*?)(\])[^\:]              # Footnote marker
       captures:
-        1: comment.block.html
+        1: comment
         2: constant.other.reference.link.markdown
-        3: comment.block.html
+        3: comment
     - match: ^\s*(\[\^)(.*)(\]\:)   # Footnote definition
       captures:
-        1: comment.block.html
+        1: comment
         2: constant.other.reference.link.markdown
-        3: comment.block.html
+        3: comment
       push: # Only allows subsequent pars if all indented. Not strictly correct.
         - include: text_formatting
         - include: inline-links-citations-etc
@@ -360,7 +360,7 @@ contexts:
             - match: (?=^\s{0,3}[^\s])
               pop: true
     - match: \^\[                   # Inline notes
-      scope: comment.block.html
+      scope: comment
       push:
         - include: citations
         - meta_scope: string.other.link.description.markdown
@@ -370,13 +370,13 @@ contexts:
           - match: \]
             pop: true
         - match: \]
-          scope: comment.block.html
+          scope: comment
           pop: true
 
   citations:
     - match: (\[)([^\]]*\@) # The @ can be anywhere in the link.
       captures:
-        1: comment.block.html
+        1: comment
         2: constant.other.reference.link.markdown
       push:
         - meta_scope: constant.other.reference.link.markdown
@@ -386,57 +386,57 @@ contexts:
             - match: \]
               pop: true
         - match: \]
-          scope: comment.block.html
+          scope: comment
           pop: true
     - match: (\s|^|-|/)(\@[\w:-]*\w)(\s?\[([^\]]*)\])? # Without opening bracket
       captures:
         2: constant.other.reference.link.markdown
-        3: comment.block.html # Allows [] to close citation to separate
+        3: comment # Allows [] to close citation to separate
         4: constant.other.reference.link.markdown
 
   spans:
     - match: (?<!\\)\[
       scope: comment
       push:
-        - meta_content_scope: invalid
+        - meta_content_scope: invalid # Highlights the span
         - match: \]\{\..*\}
           scope: comment
           pop: true
 
   latex:
     - match: \\begin\{(\w*)\}.*
-      scope: comment.block.html
+      scope: comment
       push:
         - meta_scope: markup.raw.block.markdown
         - match: \\end\{\1\}
-          scope: comment.block.html
+          scope: comment
           pop: true
     - match: \\\w+((\{[^\}]*\})|(\[[^\]]*\]))*
-      scope: comment.block.html
+      scope: comment
 
   pandoc-figref:
     - match: (\{\#\D\:)([^\}]*)(\})
       captures:
-        1: comment.block.html
+        1: comment
         2: constant.other.reference.link.markdown
-        3: comment.block.html
+        3: comment
 
   pandoc-chem-struct:
     - match: (s\:\{)([^\}]*)(\})
       captures:
-        1: comment.block.html
-        3: comment.block.html
+        1: comment
+        3: comment
 
   pandoc-cmpdnames:
     - match: (?<!s\:)(\{)([\w\(\)-\[\]]*)(\})
       captures:
-        1: comment.block.html
+        1: comment
         2: markup.bold.markdown
-        3: comment.block.html
+        3: comment
 
   pandoc-include:
     - match: ^(\!\()(.*)(\))$
       captures:
-        1: comment.block.html
+        1: comment
         2: markup.underline.link.markdown
-        3: comment.block.html
+        3: comment
