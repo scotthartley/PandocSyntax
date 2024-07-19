@@ -31,6 +31,7 @@ contexts:
     - include: links
     - include: citations
     - include: footnotes
+    - include: spans
     - include: pandoc-filters
     - include: latex
     - include: fenced_divs
@@ -392,6 +393,15 @@ contexts:
         2: constant.other.reference.link.markdown
         3: comment.block.html # Allows [] to close citation to separate
         4: constant.other.reference.link.markdown
+
+  spans:
+    - match: (?<!\\)\[
+      scope: comment
+      push:
+        - meta_content_scope: invalid
+        - match: \]\{\..*\}
+          scope: comment
+          pop: true
 
   latex:
     - match: \\begin\{(\w*)\}.*
