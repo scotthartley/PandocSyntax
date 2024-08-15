@@ -31,6 +31,7 @@ contexts:
     - include: links
     - include: citations
     - include: footnotes
+    - include: task_lists
     - include: spans
     - include: pandoc-filters
     - include: latex
@@ -393,6 +394,12 @@ contexts:
         2: constant.other.reference.link.markdown
         3: comment # Allows [] to close citation to separate
         4: constant.other.reference.link.markdown
+
+  task_lists:
+    - match: ^(\s*- )(\[)([ x])(\])
+      captures:
+        2: comment
+        4: comment
 
   spans:
     - match: (?<!\\)\[
