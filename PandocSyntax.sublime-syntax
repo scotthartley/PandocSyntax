@@ -406,7 +406,7 @@ contexts:
       scope: comment
       push:
         - meta_content_scope: invalid # Highlights the span
-        - match: \]\{\..*\}
+        - match: \]\{\.[^}]*\}
           scope: comment
           pop: true
 
