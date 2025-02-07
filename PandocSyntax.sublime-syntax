@@ -283,7 +283,9 @@ contexts:
         3: comment
         4: markup.underline.link.markdown
         5: comment
-    - match: (?:^|\s)(?<!\]\s)(\[)([^\^|\-@][^\]@]*)(\])(?![\(\[])(?={{sp_punc}})    # Shortcut reference link
+    - match: (?:^|\s)(\[)([^\^|\-@][^\]@]*)(\])(?![\(\[])(?={{sp_punc}})    # Shortcut reference link
+      # Original match: (?:^|\s)(?<!\]\s)(\[)([^\^|\-@][^\]@]*)(\])(?![\(\[])(?={{sp_punc}})
+      # Fails for two shortcuts in a row, though [like] [this].
       captures:
         1: comment
         2: string.other.link.title.markdown
