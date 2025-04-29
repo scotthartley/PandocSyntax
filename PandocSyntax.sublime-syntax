@@ -413,7 +413,7 @@ contexts:
           pop: true
 
   latex:
-    - match: \\begin\{(\w*)\}.*
+    - match: \\begin\{(\w*\*?)\}.*
       scope: comment
       push:
         - meta_scope: markup.raw.block.markdown
