@@ -269,7 +269,7 @@ contexts:
         3: comment
         4: markup.underline.link.markdown
         5: comment
-    - match: (\[)([^\s][^\]]*)(\]\s?\[)([^\]]*)(\])       # Reference link
+    - match: (\[)([^@][^\s][^\]]*)(\]\s?\[)([^\]]*)(\])       # Reference link
       captures:
         1: comment
         2: string.other.link.title.markdown
