@@ -316,9 +316,19 @@ contexts:
         scope: comment
         set:
           - meta_scope: markup.underline.link.markdown
-          - match: \)(\{[^\}]*\})? # Allows optional figure attributes
+          - match: \)
             scope: comment
-            pop: true
+            # Instead of popping, we transition to check for optional attributes
+            set:
+              - match: \s*\{
+                scope: comment
+                push:
+                  - meta_scope: comment  # This keeps everything inside the braces as a comment
+                  - match: \}
+                    scope: comment
+                    pop: true
+              - match: (?=\S)|$  # If no { is found (even after whitespace), we're done
+                pop: true
 
   tables:
     - match: ^(\| )(?=.*\|)  # Table
