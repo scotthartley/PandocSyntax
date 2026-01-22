@@ -345,11 +345,11 @@ contexts:
     - match: "^(Table)?:(?!:)"
       scope: comment
       push:
+        - meta_scope: string.other.link.description.markdown
+        - match: \s?\{[^\}]*\}$
+          scope: comment
         - include: text_formatting
         - include: pandoc-filters
-        - meta_scope: string.other.link.description.markdown
-        - match: \{[^\}]*\}$
-          scope: comment
         - match: ^$
           pop: true
 
