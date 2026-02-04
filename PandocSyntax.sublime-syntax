@@ -183,7 +183,7 @@ contexts:
           pop: true
 
   math:
-    - match: (\$\$?)(?!\s)([^\$]*)(?<!\s)(\$\$?)(?![0-9])(\{[^\}]*\})?
+    - match: (\$\$?)(?!\s)([^\$]*)(?<!\s)(\$\$?)(?![0-9])\s?(\{[^\}]*\})?
       captures:
         1: comment
         2: markup.raw.block.markdown
@@ -269,7 +269,7 @@ contexts:
         3: comment
         4: markup.underline.link.markdown
         5: comment
-    - match: (\[)([^@][^\s][^\]]*)(\]\s?\[)([^\]]*)(\])       # Reference link
+    - match: (\[)([^@][^\]]*)(\]\s?\[)([^\]]*)(\])       # Reference link
       captures:
         1: comment
         2: string.other.link.title.markdown
