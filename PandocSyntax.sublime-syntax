@@ -197,7 +197,7 @@ contexts:
         2: comment
 
   strikethrough:
-    - match: (?<!\\)(~~)(.+)(~~)
+    - match: (?<!\\)(~~)(.+?)(~~)
       captures:
         1: comment
         2: invalid
