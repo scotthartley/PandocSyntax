@@ -197,10 +197,11 @@ contexts:
         2: comment
 
   strikethrough:
-    - match: (?<!\\)(~~).+(~~)
+    - match: (?<!\\)(~~)(.+)(~~)
       captures:
         1: comment
-        2: comment
+        2: invalid
+        3: comment
 
   superscript:
     - match: (\^)[^\[\^]*(\^)
@@ -422,7 +423,6 @@ contexts:
     - match: (?<!\\)\[
       scope: comment
       push:
-        - meta_content_scope: invalid # Highlights the span
         - match: \]\{\.[^}]*\}
           scope: comment
           pop: true
