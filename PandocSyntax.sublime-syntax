@@ -117,7 +117,7 @@ contexts:
         - match: ^\s*\>
           scope: comment
         - meta_scope: markup.quote.markdown
-        - match: ^$
+        - match: ^\s*$
           pop: true
     - match: ^(\| )(?!.*[^\\]\|)  # Line block (highlighted as block quote)
       scope: comment
@@ -125,7 +125,7 @@ contexts:
         - match: ^\|
           scope: comment
         - meta_scope: markup.quote.markdown
-        - match: ^$
+        - match: ^\s*$
           pop: true
     - match: ^ {4}.*  # Verbatim (code) block
       scope: markup.raw.block.markdown
