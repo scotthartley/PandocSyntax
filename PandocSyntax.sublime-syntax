@@ -138,6 +138,16 @@ contexts:
         - match: ^(?:~~~|```).*
           scope: comment
           pop: true
+    - match: ^\$\$$  # Display math block (multi-line $$...$$)
+      scope: comment
+      push:
+        - meta_include_prototype: false
+        - meta_scope: markup.raw.block.markdown
+        - match: ^\$\$\s*(\{[^\}]*\})?$
+          captures:
+            1: comment  # optional {#eq:id} label
+          scope: comment
+          pop: true
     - match: (?=^.*)
       pop: true
 
@@ -446,7 +456,7 @@ contexts:
         3: comment
 
   pandoc-chem-struct:
-    - match: (s\:\{)([^\}]*)(\})
+    - match: (s\:\{)([^\{\}]*(?:\{[^\}]*\}[^\{\}]*)*)(\})
       captures:
         1: comment
         3: comment
