@@ -10,6 +10,7 @@ variables:
 
 contexts:
   main:
+    - include: yaml
     - match: ^(?=\#) # Allows file to start with header.
       push: blank_line
     - match: (?=\n)
@@ -22,7 +23,6 @@ contexts:
   prototype:
     - include: comment
     - include: text_formatting
-    - include: yaml
     - include: inline-links-citations-etc
 
   inline-links-citations-etc:
@@ -56,60 +56,35 @@ contexts:
     - include: unnumbered_list
     - include: numbered_list
     - include: lettered_list
-    - match: ^(\#)\s(.*)(\{.*\})$
+    - match: ^(\#)\s(.*?)(\s*\{[^\}]*\})?$
       captures:
         1: comment
         2: markup.heading.1.markdown
         3: comment
       pop: true
-    - match: ^(\#)\s(.*)
-      captures:
-        1: comment
-        2: markup.heading.1.markdown
-      pop: true
-    - match: ^(\#\#)\s(.*)(\{.*\})$
-      captures:
-        1: comment
-        2: markup.heading.1.markdown
-        3: comment
-      pop: true
-    - match: ^(\#\#)\s(.*)
+    - match: ^(\#\#)\s(.*?)(\s*\{[^\}]*\})?$
       captures:
         1: comment
         2: markup.heading.2.markdown
-      pop: true
-    - match: ^(\#\#\#)\s(.*)(\{.*\})$
-      captures:
-        1: comment
-        2: markup.heading.1.markdown
         3: comment
       pop: true
-    - match: ^(\#\#\#)\s(.*)
+    - match: ^(\#\#\#)\s(.*?)(\s*\{[^\}]*\})?$
       captures:
         1: comment
         2: markup.heading.3.markdown
-      pop: true
-    - match: ^(\#\#\#\#)\s(.*)(\{.*\})$
-      captures:
-        1: comment
-        2: markup.heading.1.markdown
         3: comment
       pop: true
-    - match: ^(\#\#\#\#)\s(.*)
+    - match: ^(\#\#\#\#)\s(.*?)(\s*\{[^\}]*\})?$
       captures:
         1: comment
         2: markup.heading.4.markdown
-      pop: true
-    - match: ^(\#\#\#\#\#)\s(.*)(\{.*\})$
-      captures:
-        1: comment
-        2: markup.heading.1.markdown
         3: comment
       pop: true
-    - match: ^(\#\#\#\#\#)\s(.*)
+    - match: ^(\#\#\#\#\#)\s(.*?)(\s*\{[^\}]*\})?$
       captures:
         1: comment
         2: markup.heading.5.markdown
+        3: comment
       pop: true
     - match: ^\s*(\>) # Block quote
       scope: comment
@@ -184,6 +159,13 @@ contexts:
           pop: true
 
   verbatim:
+    - match: '``(?!`)'
+      scope: comment
+      push:
+        - meta_scope: markup.raw.inline.markdown
+        - match: '``'
+          scope: comment
+          pop: true
     - match: '(?<!`)`(?!`+)'
       scope: comment
       push:
@@ -255,7 +237,7 @@ contexts:
               pop: true
 
   lettered_list:
-    - match: ^\(?[a-z,A-Z]+[\.\)]\s*
+    - match: ^\(?[a-zA-Z]+[\.\)]\s*
       push:
         - include: comment
         - include: text_formatting
@@ -369,7 +351,7 @@ contexts:
       scope: comment
 
   footnotes:
-    - match: (\[\^)([^\]]*?)(\])[^\:]              # Footnote marker
+    - match: (\[\^)([^\]]*?)(\])(?!\:)              # Footnote marker
       captures:
         1: comment
         2: constant.other.reference.link.markdown
@@ -417,14 +399,19 @@ contexts:
         - match: \]
           scope: comment
           pop: true
-    - match: (\s|^|-|/)(\@[\w:-]*\w)(\s?\[([^\]]*)\])? # Without opening bracket
+    - match: (?:(?<=[\s/\-])|^)(\@[\w:-]*\w)(\s?\[([^\]]*)\])? # Without opening bracket
       captures:
-        2: constant.other.reference.link.markdown
-        3: comment # Allows [] to close citation to separate
-        4: constant.other.reference.link.markdown
+        1: constant.other.reference.link.markdown
+        2: comment # Allows [] to close citation to separate
+        3: constant.other.reference.link.markdown
 
   task_lists:
-    - match: ^(\s*- )(\[)([ x])(\])
+    - match: ^(\s*- )(\[)(x)(\])
+      captures:
+        2: comment
+        3: markup.bold.markdown
+        4: comment
+    - match: ^(\s*- )(\[)( )(\])
       captures:
         2: comment
         4: comment
@@ -433,8 +420,13 @@ contexts:
     - match: (?<!\\)\[
       scope: comment
       push:
-        - match: \]\{\.[^}]*\}
+        - match: \]\{[^}]*\}
           scope: comment
+          pop: true
+        - match: \](?!\{)
+          scope: comment
+          pop: true
+        - match: ^$
           pop: true
 
   latex:
