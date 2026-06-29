@@ -91,3 +91,15 @@ Raw LaTeX.
     More raw LaTeX.
 \end{something_else}
 \end{something}
+
+{{< shortcode param="value" >}}
+
+{{< figure src="/img/photo.jpg"
+    alt="A photo"
+    caption="My caption" >}}
+
+{{< figure >}}
+Some content inside a paired shortcode.
+{{< /figure >}}
+
+[hugo-ref]: {{< ref "docs/page" >}}

@@ -47,6 +47,7 @@ contexts:
     - include: strikethrough
 
   pandoc-filters:
+    - include: hugo-shortcodes
     - include: pandoc-figref
     - include: pandoc-chem-struct
     - include: pandoc-cmpdnames
@@ -269,6 +270,14 @@ contexts:
         3: comment
         4: constant.other.reference.link.markdown
         5: comment
+    - match: ^\s*(\[)([^^].*)(\]\:) (\{\{<)(.*?)(>\}\})     # Reference link def with shortcode URL
+      captures:
+        1: comment
+        2: constant.other.reference.link.markdown
+        3: comment
+        4: comment
+        5: constant.other.reference.link.markdown
+        6: comment
     - match: ^\s*(\[)([^^].*)(\]\:) ([^ ]*)( \{.*\})?      # Reference link definition w attributes
       captures:
         1: comment
@@ -466,3 +475,13 @@ contexts:
         1: comment
         2: markup.underline.link.markdown
         3: comment
+
+  hugo-shortcodes:
+    - match: \{\{<
+      scope: comment
+      push:
+        - meta_include_prototype: false
+        - meta_scope: constant.other.reference.link.markdown
+        - match: '>\}\}'
+          scope: comment
+          pop: true
