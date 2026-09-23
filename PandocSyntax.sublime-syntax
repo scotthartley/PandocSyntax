@@ -256,14 +256,14 @@ contexts:
         1: comment
         2: string.other.link.title.markdown
         3: comment
-    - match: (\[)([^\s][^\]]*)(\]\()([^\)]*)(\))                  # Inline link
+    - match: (\[)([^\s\[][^\[\]]*)(\]\()([^\)]*)(\))            # Inline link
       captures:
         1: comment
         2: string.other.link.title.markdown
         3: comment
         4: markup.underline.link.markdown
         5: comment
-    - match: (\[)([^@][^\]]*)(\]\s?\[)([^\]]*)(\])       # Reference link
+    - match: (\[)([^@\[][^\[\]]*)(\]\s?\[)([^\]]*)(\])   # Reference link
       captures:
         1: comment
         2: string.other.link.title.markdown
@@ -394,7 +394,7 @@ contexts:
           pop: true
 
   citations:
-    - match: (\[)([^\]]*\@) # The @ can be anywhere in the link.
+    - match: (\[)([^\[\]]*\@) # The @ can be anywhere in the link (but not in a nested bracket).
       captures:
         1: comment
         2: constant.other.reference.link.markdown
@@ -437,6 +437,10 @@ contexts:
           pop: true
         - match: ^$
           pop: true
+        # Pushed contexts don't inherit the prototype, so include inline
+        # elements explicitly (incl. spans itself, for nested brackets).
+        - include: text_formatting
+        - include: inline-links-citations-etc
 
   latex:
     - match: \\begin\{(\w*\*?)\}.*

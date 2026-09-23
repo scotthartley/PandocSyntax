@@ -74,6 +74,9 @@ anim id est laborum. \LaTeX_command
 
 [^noteref]: This is a footnote.
 
+Spans can contain [1 submitted [@Raji:2025ab] and 1 more in preparation]{.mark}
+and [nested [links](\url) too]{.underline}.
+
 | A line block.
 |   Which will preserve leading spaces.
 
