@@ -287,6 +287,11 @@ Some ***bold italic*** text, then **bold *nested italic*** and *ital **nested bo
 <!--                                                                   ^^^^^^^^^^^ markup.italic.markdown markup.bold.markdown -->
 <!--                                                                                 ^ - markup.bold - markup.italic -->
 
+[Ac + F -> Ac^*]{.chem} and then [a *b]{.c} end.
+<!--          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - markup.italic -->
+<!--           ^^^^^^^^ comment -->
+<!--                                  ^^^^^ comment -->
+
 Some ___both___, __bold _ital___, (__paren__), snake_case_name, _word_? ok.
 <!--    ^^^^ markup.bold.markdown markup.italic.markdown -->
 <!--                     ^^^^ markup.bold.markdown markup.italic.markdown -->

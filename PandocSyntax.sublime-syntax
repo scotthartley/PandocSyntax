@@ -579,23 +579,23 @@ contexts:
       pop: true
 
   emphasis:
-    - match: '(?<![\\*])\*\*\*(?=[^\s*])'
+    - match: '(?<![\\*])\*\*\*(?=[^\s*\]])'
       scope: comment
       push: bold-italic-star
-    - match: '(?<![\\*])\*\*(?=[^\s*])'
+    - match: '(?<![\\*])\*\*(?=[^\s*\]])'
       scope: comment
       push: bold-star
-    - match: '(?<![\\*])\*(?=[^\s*])'
+    - match: '(?<![\\*])\*(?=[^\s*\]])'
       scope: comment
       push: italic-star
     # Underscores never open or close inside a word.
-    - match: '(?<![\\\w])___(?=[^\s_])'
+    - match: '(?<![\\\w])___(?=[^\s_\]])'
       scope: comment
       push: bold-italic-under
-    - match: '(?<![\\\w])__(?=[^\s_])'
+    - match: '(?<![\\\w])__(?=[^\s_\]])'
       scope: comment
       push: bold-under
-    - match: '(?<![\\\w])_(?=[^\s_])'
+    - match: '(?<![\\\w])_(?=[^\s_\]])'
       scope: comment
       push: italic-under
 
@@ -612,6 +612,7 @@ contexts:
       set: bold-star
     - match: '{{para_end}}'
       pop: true
+    - include: emphasis-bracket-end
     - include: inline
 
   bold-star:
@@ -621,6 +622,7 @@ contexts:
       pop: true
     - match: '{{para_end}}'
       pop: true
+    - include: emphasis-bracket-end
     - include: inline
 
   italic-star:
@@ -632,6 +634,7 @@ contexts:
       pop: true
     - match: '{{para_end}}'
       pop: true
+    - include: emphasis-bracket-end
     - include: inline
 
   bold-italic-under:
@@ -647,6 +650,7 @@ contexts:
       set: bold-under
     - match: '{{para_end}}'
       pop: true
+    - include: emphasis-bracket-end
     - include: inline
 
   bold-under:
@@ -656,6 +660,7 @@ contexts:
       pop: true
     - match: '{{para_end}}'
       pop: true
+    - include: emphasis-bracket-end
     - include: inline
 
   italic-under:
@@ -665,7 +670,14 @@ contexts:
       pop: true
     - match: '{{para_end}}'
       pop: true
+    - include: emphasis-bracket-end
     - include: inline
+
+  emphasis-bracket-end:
+    # Emphasis can't cross the "]" that closes an enclosing span or link, as
+    # in "[A^*]{.chem}", so an unmatched "]" ends it.
+    - match: '(?=\])'
+      pop: true
 
   strikethrough:
     - match: '(?<![\\~])(~~)(?=\S)(.+?)(?<=\S)(~~)'
