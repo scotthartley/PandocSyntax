@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Markdown's root scope (text.html.markdown) otherwise inherits the HTML
+  package's rules (scope text.html), which treat things like `<=>` as an
+  unclosed tag and indent the next line. Prose never changes indentation;
+  code blocks (markup.raw) keep their own language's rules.
+-->
+<plist version="1.0">
+<dict>
+	<key>scope</key>
+	<string>text.html.markdown - markup.raw</string>
+	<key>settings</key>
+	<dict>
+		<key>increaseIndentPattern</key>
+		<string>(?!)</string>
+		<key>decreaseIndentPattern</key>
+		<string>(?!)</string>
+		<key>bracketIndentNextLinePattern</key>
+		<string>(?!)</string>
+	</dict>
+</dict>
+</plist>
