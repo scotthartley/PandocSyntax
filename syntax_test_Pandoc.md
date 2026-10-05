@@ -110,6 +110,22 @@ is an <inline link.html>. This is a [shortcut reference link].
 <!--                                          ^^^^^^^ markup.underline.link.markdown -->
 <!--                                                  ^^^^^^^^^^^^^^^^^^ comment - constant - string -->
 
+![
+Activation, deactivation, and exchange.
+<!-- ^^^^^^ string.other.link.description.markdown -->
+](figures/anh_cycle.pdf){
+<!--                    ^ comment -->
+  .scheme
+<!-- ^^^^^ comment -->
+  wpos="r}"
+<!-- ^^^^^^^ comment -->
+  #s:anh_cycle
+<!-- ^^^^^^^^^^ comment - constant -->
+}
+<!-- <- comment -->
+After the figure.
+<!-- ^^^ - comment -->
+
 This inline ![Figure 2] has the path specified separately. Lorem ipsum dolor
 <!--          ^^^^^^^^ string.other.link.description.markdown -->
 <!--                    ^^^^^^^ - string -->
@@ -308,6 +324,10 @@ Code ``with `backticks` inside`` and `**not bold** $x$ [no]` ok.
 Code with attributes `print(1)`{.python} and a span [x]{.class}.
 <!--                           ^^^^^^^^^ comment - markup.bold -->
 <!--                                                   ^^^^^^^^ comment - markup.bold -->
+A span [x]{.class
+  key=value} across lines.
+<!-- ^^^^^^^ comment -->
+<!--         ^^^^^^ - comment -->
 
 Compounds {1a} and {2,3-dimethyl} are bold; {=latex} and {-} are not.
 <!--       ^^ markup.bold.markdown -->

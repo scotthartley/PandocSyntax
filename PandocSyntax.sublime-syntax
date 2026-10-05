@@ -834,9 +834,9 @@ contexts:
       push: span-body
 
   span-body:
-    - match: '\]\{[^}\n]*\}'
+    - match: '\]\{'
       scope: comment
-      pop: true
+      set: attribute-body
     - match: '\]'
       scope: comment
       pop: true
@@ -847,8 +847,19 @@ contexts:
 
   attributes:
     # {#id .class key=value} right after inline code, a link, or an image.
-    - match: '(?<=[`\])])\{[^}\n]*\}'
+    # May span several lines.
+    - match: '(?<=[`\])])\{'
       scope: comment
+      push: attribute-body
+
+  attribute-body:
+    - meta_scope: comment
+    - match: '\}'
+      pop: true
+    # Quoted values may contain "}".
+    - match: '"[^"\n]*"|''[^''\n]*'''
+    - match: '{{para_end}}'
+      pop: true
 
   pandoc-filters:
     - include: pandoc-figref
