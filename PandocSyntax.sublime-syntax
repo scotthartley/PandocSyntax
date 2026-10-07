@@ -880,8 +880,9 @@ contexts:
         3: comment
 
   pandoc-cmpdnames:
-    # {1a}, {2,3-dimethyl}. A leading . # = or - means pandoc attributes.
-    - match: '(?<!s:)(\{)(?![.#=-])([\w()\[\],:''+-]+)(\})'
+    # {1a}, {2,3-dimethyl}, {Ac1\*}. A leading . # = or - means pandoc
+    # attributes. Backslash escapes are allowed, as in pandoc-chem-sub-lua.
+    - match: '(?<!s:)(\{)(?![.#=-])((?:[\w()\[\],:''+*^.-]|\\[!-/:-@\[-`{-~])+)(\})'
       captures:
         1: comment
         2: markup.bold.markdown

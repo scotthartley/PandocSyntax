@@ -335,6 +335,12 @@ Compounds {1a} and {2,3-dimethyl} are bold; {=latex} and {-} are not.
 <!--                                        ^^^^^^^^ - markup.bold -->
 <!--                                                     ^^^ - markup.bold -->
 
+Escaped characters are allowed in compound names: {Ac1\*} and {Ac^+}.
+<!--                                              ^ comment -->
+<!--                                               ^^^^^ markup.bold.markdown -->
+<!--                                                    ^ comment -->
+<!--                                                           ^^^^ markup.bold.markdown -->
+
 Fig. 3 shows that lettered lists need a single letter.
 <!-- <- - markup.list -->
 
