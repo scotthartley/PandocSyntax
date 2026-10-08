@@ -517,6 +517,7 @@ contexts:
     - include: subscript
     - include: superscript
     - include: figures
+    - include: chem-spans
     - include: footnotes
     - include: citations
     - include: links
@@ -579,15 +580,7 @@ contexts:
       pop: true
 
   emphasis:
-    - match: '(?<![\\*])\*\*\*(?=[^\s*\]])'
-      scope: comment
-      push: bold-italic-star
-    - match: '(?<![\\*])\*\*(?=[^\s*\]])'
-      scope: comment
-      push: bold-star
-    - match: '(?<![\\*])\*(?=[^\s*\]])'
-      scope: comment
-      push: italic-star
+    - include: emphasis-star
     # Underscores never open or close inside a word.
     - match: '(?<![\\\w])___(?=[^\s_\]])'
       scope: comment
@@ -598,6 +591,17 @@ contexts:
     - match: '(?<![\\\w])_(?=[^\s_\]])'
       scope: comment
       push: italic-under
+
+  emphasis-star:
+    - match: '(?<![\\*])\*\*\*(?=[^\s*\]])'
+      scope: comment
+      push: bold-italic-star
+    - match: '(?<![\\*])\*\*(?=[^\s*\]])'
+      scope: comment
+      push: bold-star
+    - match: '(?<![\\*])\*(?=[^\s*\]])'
+      scope: comment
+      push: italic-star
 
   bold-italic-star:
     - meta_scope: markup.bold.markdown markup.italic.markdown
@@ -827,6 +831,46 @@ contexts:
       push: link-url-parens
     - match: '{{para_end}}'
       pop: true
+
+  chem-spans:
+    # [...]{.chem} for pandoc-chem-sub-lua, which has its own syntax: _ and ^
+    # are sub/superscripts, {...} groups them, and [...] nests. Only *italic*
+    # and **bold** labels and backslash escapes are Markdown inside. Allows one
+    # level of nested brackets. A chem span must close on the line it opens;
+    # one that wraps is highlighted as an ordinary span.
+    - match: '\[(?=(?:[^\[\]\n]|\[[^\[\]\n]*\])*\]\{[^}\n]*(?<![\w-])\.chem(?![\w-]))'
+      scope: comment
+      push: chem-span-body
+
+  chem-span-body:
+    - match: '\]\{'
+      scope: comment
+      set: attribute-body
+    - match: '\]'
+      scope: comment
+      pop: true
+    - match: '{{para_end}}'
+      pop: true
+    - match: '\['
+      push: chem-span-brackets
+    - include: chem-inline
+
+  chem-span-brackets:
+    # Nested [...] inside a chem span, as in [[AgCl2]-]{.chem}.
+    - match: '\]'
+      pop: true
+    - match: '\['
+      push: chem-span-brackets
+    - match: '{{para_end}}'
+      pop: true
+    - include: chem-inline
+
+  chem-inline:
+    - include: escapes
+    - include: comment
+    # Excited-state marker, as in Ac^*, isn't emphasis.
+    - match: '\^\*'
+    - include: emphasis-star
 
   spans:
     - match: '\['

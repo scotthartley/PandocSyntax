@@ -308,6 +308,25 @@ Some ***bold italic*** text, then **bold *nested italic*** and *ital **nested bo
 <!--           ^^^^^^^^ comment -->
 <!--                                  ^^^^^ comment -->
 
+[(CH2CH2O)_nCH3]{.chem} and [a _b_]{.c} and [x _y_]{.chemistry} end.
+<!--       ^^^^ - markup.italic -->
+<!--           ^^^^^^^^ comment -->
+<!--                            ^ markup.italic.markdown -->
+<!--                                            ^ markup.italic.markdown -->
+
+Then [SO4^{2-}]{.chem} and [[AgCl2]-]{.chem} end.
+<!--       ^^ - markup.bold -->
+<!--                              ^^ - comment -->
+<!--                                ^^^^^^^^ comment -->
+
+Then [*cis*-[PtCl2(NH3)2]]{.chem}, [**L1**H2]{.chem}, [Ac^*B + C]{.chem} end.
+<!--   ^^^ markup.italic.markdown -->
+<!--         ^^^^^ - markup.italic -->
+<!--                     ^^^^^^^^ comment -->
+<!--                                  ^^ markup.bold.markdown -->
+<!--                                      ^^ - markup.bold -->
+<!--                                                       ^^^^^ - markup.italic -->
+
 Some ___both___, __bold _ital___, (__paren__), snake_case_name, _word_? ok.
 <!--    ^^^^ markup.bold.markdown markup.italic.markdown -->
 <!--                     ^^^^ markup.bold.markdown markup.italic.markdown -->
