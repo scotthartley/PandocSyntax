@@ -473,3 +473,7 @@ Div content with *italic*.
 Text [[Wiki Link]] here.
 <!--   ^^^^^^^^^ constant.other.reference.link.markdown -->
 <!-- ^^ comment -->
+
+Span [[cite Lehn]]{.mark} not a wikilink.
+<!--   ^^^^^^^^^ - constant.other.reference.link -->
+<!--  ^ comment -->

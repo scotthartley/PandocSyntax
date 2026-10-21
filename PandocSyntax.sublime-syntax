@@ -781,7 +781,7 @@ contexts:
         2: string.other.link.title.markdown
         3: comment
     # Obsidian-style [[wikilink]].
-    - match: '(\[\[)([^\]\n]*)(\]\])'
+    - match: '(\[\[)([^\]\n]*)(\]\])(?!\{)'
       captures:
         1: comment
         2: constant.other.reference.link.markdown
