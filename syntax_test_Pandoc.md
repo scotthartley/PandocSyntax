@@ -475,5 +475,11 @@ Text [[Wiki Link]] here.
 <!-- ^^ comment -->
 
 Span [[cite Lehn]]{.mark} not a wikilink.
-<!--   ^^^^^^^^^ - constant.other.reference.link -->
-<!--  ^ comment -->
+<!-- ^ comment -->
+<!--  ^^^^^^^^^^^ - comment - constant -->
+<!--             ^^ comment -->
+
+Mark [[refs]]{.mark} here.
+<!-- ^ comment -->
+<!--  ^^^^^^ - comment - constant -->
+<!--        ^^ comment -->

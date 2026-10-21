@@ -886,7 +886,17 @@ contexts:
       pop: true
     - match: '{{para_end}}'
       pop: true
+    # [[refs]]{.mark}: the inner brackets are plain text, not markup.
+    - match: '\[(?=[^\[\]\n]*\]\]\{)'
+      push: span-literal-brackets
     # Includes spans itself, for nested brackets.
+    - include: inline
+
+  span-literal-brackets:
+    - match: '\]'
+      pop: true
+    - match: '{{para_end}}'
+      pop: true
     - include: inline
 
   attributes:
