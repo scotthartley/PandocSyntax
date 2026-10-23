@@ -759,6 +759,8 @@ contexts:
     - match: '\]'
       scope: comment
       pop: true
+    - match: ';'
+      scope: comment
     - match: '\['
       push: citation-locator
     - match: '{{para_end}}'

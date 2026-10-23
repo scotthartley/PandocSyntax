@@ -173,6 +173,7 @@ labore et dolore magna aliqua.^[Inline footnote] Ut enim ad minim
 <!--                                             ^^^^^^^ - string -->
 veniam,[@citation; @citation] quis nostrud exercitation ullamco [@more_complex
 <!--    ^^^^^^^^^^^^^^^^^^^^ constant.other.reference.link.markdown -->
+<!--                 ^ comment -->
 <!--                          ^^^^ - constant -->
 <!--                                                              ^^^^^^^^^^^^ constant.other.reference.link.markdown -->
 [p. 30]; @citation [p. 20]] laboris nisi ut aliquip ex ea commodo consequat.
