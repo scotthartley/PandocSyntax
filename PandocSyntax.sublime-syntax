@@ -521,6 +521,7 @@ contexts:
     - include: footnotes
     - include: citations
     - include: links
+    - include: mark-spans
     - include: spans
     - include: attributes
     - include: pandoc-filters
@@ -873,6 +874,19 @@ contexts:
     # Excited-state marker, as in Ac^*, isn't emphasis.
     - match: '\^\*'
     - include: emphasis-star
+
+  mark-spans:
+    # [...]{.mark} is highlighted in output, so its text gets a color of its
+    # own (markup.changed, which color schemes style for diffs). As with chem
+    # spans, allows one level of nested brackets and must close on the line it
+    # opens.
+    - match: '\[(?=(?:[^\[\]\n]|\[[^\[\]\n]*\])*\]\{[^}\n]*(?<![\w-])\.mark(?![\w-]))'
+      scope: comment
+      push: mark-span-body
+
+  mark-span-body:
+    - meta_content_scope: markup.changed.highlight.markdown
+    - include: span-body
 
   spans:
     - match: '\['

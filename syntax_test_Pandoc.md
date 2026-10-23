@@ -205,6 +205,8 @@ Not part of the footnote.
 Spans can contain [1 submitted [@Raji:2025ab] and 1 more in preparation]{.mark}
 <!--              ^ comment -->
 <!--                            ^^^^^^^^^^^^ constant.other.reference.link.markdown -->
+<!--                            ^^^^^^^^^^^^ markup.changed.highlight.markdown -->
+<!--                                                     ^^^^^^^^^^^^^^ markup.changed.highlight.markdown -->
 <!--                                                                   ^^^^^^^^ comment - markup.bold -->
 and [nested [links](\url) too]{.underline}.
 <!--         ^^^^^ string.other.link.title.markdown -->
@@ -478,9 +480,28 @@ Text [[Wiki Link]] here.
 Span [[cite Lehn]]{.mark} not a wikilink.
 <!-- ^ comment -->
 <!--  ^^^^^^^^^^^ - comment - constant -->
+<!--  ^^^^^^^^^^^ markup.changed.highlight.markdown -->
 <!--             ^^ comment -->
 
 Mark [[refs]]{.mark} here.
 <!-- ^ comment -->
 <!--  ^^^^^^ - comment - constant -->
+<!--  ^^^^^^ markup.changed.highlight.markdown -->
 <!--        ^^ comment -->
+
+Some [highlighted *text*]{.mark} and [plain]{.marker} and [x]{#id .c .mark k=v} end.
+<!-- ^ comment - markup.changed -->
+<!--  ^^^^^^^^^^^^ markup.changed.highlight.markdown -->
+<!--               ^^^^ markup.changed.highlight.markdown markup.italic.markdown -->
+<!--                    ^^^^^^^^ comment - markup.changed -->
+<!--                                  ^^^^^ - markup.changed -->
+<!--                                                       ^ markup.changed.highlight.markdown -->
+<!--                                                                           ^^^^ - markup.changed -->
+
+Then [wrapped
+<!--  ^^^^^^^ - markup.changed -->
+mark]{.mark} span, and [a [link](\url) b]{.mark}.
+<!-- <- - markup.changed -->
+<!--                       ^^^^ markup.changed.highlight.markdown string.other.link.title.markdown -->
+<!--                                  ^^ markup.changed.highlight.markdown -->
+<!--                                    ^^^^^^^^ comment - markup.changed -->
