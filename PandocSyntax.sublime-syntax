@@ -521,7 +521,6 @@ contexts:
     - include: footnotes
     - include: citations
     - include: links
-    - include: mark-spans
     - include: spans
     - include: attributes
     - include: pandoc-filters
@@ -875,23 +874,40 @@ contexts:
     - match: '\^\*'
     - include: emphasis-star
 
-  mark-spans:
+  spans:
     # [...]{.mark} is highlighted in output, so its text gets a color of its
-    # own (markup.changed, which color schemes style for diffs). As with chem
-    # spans, allows one level of nested brackets and must close on the line it
-    # opens.
-    - match: '\[(?=(?:[^\[\]\n]|\[[^\[\]\n]*\])*\]\{[^}\n]*(?<![\w-])\.mark(?![\w-]))'
+    # own (markup.changed, which color schemes style for diffs). Whether a
+    # span is a mark span isn't known until its attributes, which may be lines
+    # away, so each span is first lexed as a mark span; if it ends any other
+    # way, the branch fails and the span is re-lexed as a plain one.
+    - match: '\['
       scope: comment
-      push: mark-span-body
+      branch_point: span
+      branch:
+        - mark-span-body
+        - span-body
 
   mark-span-body:
     - meta_content_scope: markup.changed.highlight.markdown
-    - include: span-body
-
-  spans:
-    - match: '\['
+    - match: '\]\{'
       scope: comment
-      push: span-body
+      set: mark-span-attributes
+    - match: '\]'
+      fail: span
+    - match: '{{para_end}}'
+      fail: span
+    - include: span-contents
+
+  mark-span-attributes:
+    # Still tentative until .mark turns up; attributes may wrap too.
+    - meta_scope: comment
+    - match: '"[^"\n]*"|''[^''\n]*'''
+    - match: '(?<![\w-])\.mark(?![\w-])'
+      set: attribute-body
+    - match: '\}'
+      fail: span
+    - match: '{{para_end}}'
+      fail: span
 
   span-body:
     - match: '\]\{'
@@ -902,6 +918,9 @@ contexts:
       pop: true
     - match: '{{para_end}}'
       pop: true
+    - include: span-contents
+
+  span-contents:
     # [[refs]]{.mark}: the inner brackets are plain text, not markup.
     - match: '\[(?=[^\[\]\n]*\]\]\{)'
       push: span-literal-brackets

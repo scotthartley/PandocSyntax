@@ -499,9 +499,42 @@ Some [highlighted *text*]{.mark} and [plain]{.marker} and [x]{#id .c .mark k=v} 
 <!--                                                                           ^^^^ - markup.changed -->
 
 Then [wrapped
-<!--  ^^^^^^^ - markup.changed -->
+<!--  ^^^^^^^ markup.changed.highlight.markdown -->
 mark]{.mark} span, and [a [link](\url) b]{.mark}.
-<!-- <- - markup.changed -->
+<!-- <- markup.changed.highlight.markdown -->
+<!-- ^^ comment - markup.changed -->
 <!--                       ^^^^ markup.changed.highlight.markdown string.other.link.title.markdown -->
 <!--                                  ^^ markup.changed.highlight.markdown -->
 <!--                                    ^^^^^^^^ comment - markup.changed -->
+
+A [three
+<!-- ^^^^^ markup.changed.highlight.markdown -->
+line *emphasis* and [link](\url)
+<!-- <- markup.changed.highlight.markdown -->
+<!-- ^^^^^^^^^^ markup.changed.highlight.markdown markup.italic.markdown -->
+<!--                 ^^^^ markup.changed.highlight.markdown string.other.link.title.markdown -->
+mark]{.mark} span.
+<!-- <- markup.changed.highlight.markdown -->
+<!-- ^^^^^^^ comment - markup.changed -->
+<!--          ^^^^ - markup.changed -->
+
+An [underlined
+<!-- ^^^^^^^^^^ - markup.changed -->
+span]{.underline} and a [plain
+<!-- <- - markup.changed -->
+<!--                      ^^^^^ - markup.changed -->
+span] here.
+<!-- <- - markup.changed -->
+
+An [unclosed mark
+<!-- ^^^^^^^^^^^^^ - markup.changed -->
+
+]{.mark} is not one.
+<!-- <- - markup.changed -->
+
+Its [attributes]{#id
+<!-- ^^^^^^^^^^ markup.changed.highlight.markdown -->
+<!--             ^^^^ comment -->
+.mark} wrap.
+<!-- <- comment -->
+<!--   ^^^^ - comment - markup.changed -->
