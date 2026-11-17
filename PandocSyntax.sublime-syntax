@@ -921,6 +921,8 @@ contexts:
     - include: span-contents
 
   span-contents:
+    # A citation may close the span, as in [text [@ref]]{.mark}.
+    - include: citations
     # [[refs]]{.mark}: the inner brackets are plain text, not markup.
     - match: '\[(?=[^\[\]\n]*\]\]\{)'
       push: span-literal-brackets

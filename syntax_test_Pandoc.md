@@ -489,6 +489,33 @@ Mark [[refs]]{.mark} here.
 <!--  ^^^^^^ markup.changed.highlight.markdown -->
 <!--        ^^ comment -->
 
+Mark [text [@ref]]{.mark} here.
+<!-- ^ comment -->
+<!--       ^ comment -->
+<!--        ^^^^ constant.other.reference.link.markdown -->
+<!--        ^^^^ markup.changed.highlight.markdown -->
+<!--            ^ comment -->
+<!--             ^^^^^^^^ comment - markup.changed -->
+<!--                      ^^^^ - markup.changed -->
+
+Mark [[@ref; @other]]{.mark} here.
+<!--  ^ comment -->
+<!--   ^^^^ constant.other.reference.link.markdown markup.changed.highlight.markdown -->
+<!--       ^ comment -->
+<!--         ^^^^^^ constant.other.reference.link.markdown markup.changed.highlight.markdown -->
+<!--               ^ comment -->
+<!--                ^^^^^^^^ comment - markup.changed -->
+
+Mark [text on
+<!--  ^^^^^^^ markup.changed.highlight.markdown -->
+line [@ref]]{.mark} here.
+<!-- <- markup.changed.highlight.markdown -->
+<!-- ^ comment -->
+<!--  ^^^^ constant.other.reference.link.markdown markup.changed.highlight.markdown -->
+<!--      ^ comment -->
+<!--       ^^^^^^^^ comment - markup.changed -->
+<!--                ^^^^ - markup.changed -->
+
 Some [highlighted *text*]{.mark} and [plain]{.marker} and [x]{#id .c .mark k=v} end.
 <!-- ^ comment - markup.changed -->
 <!--  ^^^^^^^^^^^^ markup.changed.highlight.markdown -->
